@@ -10,9 +10,9 @@ class UserController {
   static check = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.query;
     if (!id) {
-      next(ApiError.badRequest('Id not found'));
+      return next(ApiError.badRequest('Id not found'));
     }
-    res.json(id);
+    return res.json(id);
   };
 }
 
