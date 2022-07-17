@@ -8,7 +8,10 @@ class TypeController {
     return res.json(type);
   };
 
-  static getAll = async (req: Request, res: Response) => {};
+  static getAll = async (req: Request, res: Response) => {
+    const types = await Type.findAll();
+    return res.json(types);
+  };
 
   static check = async (req: Request, res: Response) => {};
 }

@@ -3,8 +3,11 @@ import { resolve } from 'path';
 import sequelize from './db.js';
 import { config } from 'dotenv';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
 import router from './routes/routes.js';
 import errorHandler from './middleware/ErrorHandlingMiddleware.js';
+import path from 'node:path';
+import { currDir } from './utils/path.js';
 
 config({ path: resolve(process.cwd(), '.env') });
 
@@ -13,6 +16,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.resolve(currDir(import.meta.url), 'static')));
+app.use(fileUpload({}));
 app.use('/api', router);
 app.use(errorHandler);
 
