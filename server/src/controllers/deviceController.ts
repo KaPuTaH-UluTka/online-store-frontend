@@ -61,13 +61,30 @@ class DeviceController {
     return res.json(devices);
   };
 
-  static getOne = async (req: Request, res: Response) => {
+  static getOne = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const device = await Device.findOne({
       where: { id },
       include: [{ model: DeviceInfo, as: 'info' }],
     });
-    return res.json(device);
+    if (device) {
+      return res.json(device);
+    } else {
+      return next(ApiError.badRequest('Not found'));
+    }
+  };
+
+  static deleteOne = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await Device.destroy({
+      where: { id },
+    }).then(function (deletedRecord) {
+      if (deletedRecord === 1) {
+        res.status(200).json({ message: 'Deleted successfully' });
+      } else {
+        res.status(404).json({ message: 'Not found' });
+      }
+    });
   };
 }
 
