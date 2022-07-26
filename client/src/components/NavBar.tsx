@@ -3,6 +3,7 @@ import { Context } from '../index';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { LOGIN_ROUTE } from '../utils/constants';
 
 const NavBar = observer(() => {
   const { user } = useContext(Context);
@@ -16,21 +17,23 @@ const NavBar = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <NavLink to={'/'}>AllCase</NavLink>
+        <NavLink style={{ color: 'white', textDecoration: 'none', fontSize: '30px' }} to={'/'}>
+          AllCase
+        </NavLink>
         {user?.isAuth ? (
           <Nav className="ml-auto">
             <Button variant={'outline-light'} onClick={logout}>
               Logout
             </Button>
-            <Button variant={'outline-light'} className="mx-4">
+            <Button variant={'outline-light'} className="mx-2">
               Admin
             </Button>
           </Nav>
         ) : (
           <Nav className="ml-auto">
-            <Button variant={'outline-light'} onClick={login}>
-              Login
-            </Button>
+            <NavLink to={LOGIN_ROUTE}>
+              <Button variant={'outline-light'}>Login</Button>
+            </NavLink>
           </Nav>
         )}
       </Container>
