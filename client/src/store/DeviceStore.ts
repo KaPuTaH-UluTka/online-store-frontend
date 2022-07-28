@@ -5,10 +5,14 @@ export default class DeviceStore {
   _types: IType[];
   _brands: IBrand[];
   _devices: IDevice[];
+  _selectedType: IType;
+  _selectedBrand: IBrand;
   constructor() {
     this._types = [];
     this._brands = [];
     this._devices = [];
+    this._selectedType = { id: 0, name: '' };
+    this._selectedBrand = { id: 0, name: '' };
     makeAutoObservable(this);
   }
 
@@ -24,6 +28,14 @@ export default class DeviceStore {
     this._devices = devices;
   }
 
+  setSelectedType(type: IType) {
+    this._selectedType = type;
+  }
+
+  setSelectedBrand(brand: IBrand) {
+    this._selectedBrand = brand;
+  }
+
   get types() {
     return this._types;
   }
@@ -34,5 +46,12 @@ export default class DeviceStore {
 
   get devices() {
     return this._devices;
+  }
+
+  get selectedType() {
+    return this._selectedType;
+  }
+  get selectedBrand() {
+    return this._selectedBrand;
   }
 }

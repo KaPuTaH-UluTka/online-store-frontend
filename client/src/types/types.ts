@@ -22,3 +22,9 @@ export interface IDevice {
   rating: number;
   img: string;
 }
+
+export interface IDescription {
+  id: number;
+  title: string;
+  description: string;
+}
