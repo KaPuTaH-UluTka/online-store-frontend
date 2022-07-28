@@ -8,9 +8,6 @@ import { LOGIN_ROUTE } from '../utils/constants';
 const NavBar = observer(() => {
   const { user } = useContext(Context);
 
-  const login = () => {
-    user?.setIsAuth(true);
-  };
   const logout = () => {
     user?.setIsAuth(false);
   };
