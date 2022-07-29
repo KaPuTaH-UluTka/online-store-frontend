@@ -24,7 +24,7 @@ export interface IDevice {
 }
 
 export interface IDescription {
-  id: number;
   title: string;
   description: string;
+  number: number;
 }
