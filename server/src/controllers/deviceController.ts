@@ -4,16 +4,18 @@ import path from 'node:path';
 import { Device, DeviceInfo } from '../models/models.js';
 import ApiError from '../error/ApiError.js';
 import { currDir } from '../utils/path.js';
+import { FileArray } from 'express-fileupload';
 
 class DeviceController {
   static create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, price, brandId, typeId, info } = req.body;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const { img } = req.files;
+
+      const { img } = req.files as FileArray;
       const fileName = v4() + '.jpg';
-      img.mv(path.resolve(currDir(import.meta.url), '..', 'static', fileName));
+      if ('mv' in img) {
+        await img.mv(path.resolve(currDir(import.meta.url), '..', 'static', fileName));
+      }
       const device = await Device.create({
         name,
         price,
@@ -47,16 +49,20 @@ class DeviceController {
     const offset: number = currentPage * currentLimit - currentLimit;
     let devices;
     if (!brandId && !typeId) {
-      devices = await Device.findAll({ limit: currentLimit, offset });
+      devices = await Device.findAndCountAll({ limit: currentLimit, offset });
     }
     if (brandId && !typeId) {
-      devices = await Device.findAll({ where: { brandId }, limit: currentLimit, offset });
+      devices = await Device.findAndCountAll({ where: { brandId }, limit: currentLimit, offset });
     }
     if (!brandId && typeId) {
-      devices = await Device.findAll({ where: { typeId }, limit: currentLimit, offset });
+      devices = await Device.findAndCountAll({ where: { typeId }, limit: currentLimit, offset });
     }
     if (brandId && typeId) {
-      devices = await Device.findAll({ where: { typeId, brandId }, limit: currentLimit, offset });
+      devices = await Device.findAndCountAll({
+        where: { typeId, brandId },
+        limit: currentLimit,
+        offset,
+      });
     }
     return res.json(devices);
   };
