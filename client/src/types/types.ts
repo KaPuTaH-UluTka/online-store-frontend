@@ -21,10 +21,14 @@ export interface IDevice {
   price: number;
   rating: number;
   img: string;
+  info: IDescription[];
+  brandId: string;
+  typeId: string;
 }
 
 export interface IDescription {
   title: string;
   description: string;
   number: number;
+  id?: number;
 }

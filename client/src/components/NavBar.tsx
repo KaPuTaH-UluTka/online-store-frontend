@@ -9,7 +9,9 @@ const NavBar = observer(() => {
   const { user } = useContext(Context);
 
   const logout = () => {
+    user?.setUser(null);
     user?.setIsAuth(false);
+    localStorage.removeItem('token');
   };
   return (
     <Navbar bg="dark" variant="dark">

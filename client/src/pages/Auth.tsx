@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card, Container, Form, FormControl } from 'react-bootstrap';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
-import { NavLink, useLocation } from 'react-router-dom';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/constants';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { login, registration } from '../http/userAPI';
 import { observer } from 'mobx-react-lite';
+import { Context } from '../index';
+import { IUser } from '../types/types';
 
 const Auth = observer(() => {
+  const { user } = useContext(Context);
   const location = useLocation();
+  const history = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = async () => {
-    if (isLogin) {
-      const response = await login(email, password);
-    } else {
-      const response = await registration(email, password);
+  const sign = async () => {
+    try {
+      let data;
+      if (isLogin) {
+        data = (await login(email, password)) as IUser;
+      } else {
+        data = (await registration(email, password)) as IUser;
+      }
+      user?.setUser(data);
+      user?.setIsAuth(true);
+      history(SHOP_ROUTE);
+    } catch (err) {
+      if (err instanceof Error) {
+        alert(err.message);
+      }
     }
   };
 
@@ -50,7 +64,7 @@ const Auth = observer(() => {
                 Have an account? <NavLink to={LOGIN_ROUTE}>Login</NavLink>
               </div>
             )}
-            <Button onClick={signIn} variant={'outline-secondary'}>
+            <Button onClick={sign} variant={'outline-secondary'}>
               {isLogin ? 'Login' : 'Registration'}
             </Button>
           </Container>
