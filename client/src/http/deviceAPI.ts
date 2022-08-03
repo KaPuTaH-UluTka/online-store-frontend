@@ -22,6 +22,7 @@ export const fetchBrands = async () => {
 };
 
 export const createDevice = async (device: FormData) => {
+  console.log(device);
   const { data } = await $authHost.post('api/device', device);
   return data;
 };
@@ -38,5 +39,10 @@ export const fetchDevices = async (
 
 export const fetchOneDevice = async (id: string) => {
   const { data } = await $host.get('api/device/' + id);
+  return data;
+};
+
+export const deleteDevice = async (id: number) => {
+  const { data } = await $host.delete('api/device/' + id);
   return data;
 };

@@ -34,6 +34,12 @@ export default class DeviceStore {
     this._devices = devices;
   }
 
+  deleteDevice(id: number) {
+    this._devices = this._devices.filter((device) => {
+      return device.id !== id;
+    });
+  }
+
   setSelectedType(type: IType) {
     this._selectedType = type;
   }

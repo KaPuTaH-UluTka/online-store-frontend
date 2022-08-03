@@ -6,14 +6,13 @@ import DeviceList from '../components/DeviceList';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../index';
 import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
-import { IBrand, IDevice, IType } from '../types/types';
 import Pages from '../components/Pages';
 
 const Shop = observer(() => {
   const { device } = useContext(Context);
   useEffect(() => {
-    fetchTypes().then((data) => device?.setTypes(data as IType[]));
-    fetchBrands().then((data) => device?.setBrands(data as IBrand[]));
+    fetchTypes().then((data) => device?.setTypes(data.rows));
+    fetchBrands().then((data) => device?.setBrands(data.rows));
     fetchDevices().then((data) => {
       device?.setDevices(data.rows);
       device?.setTotalCount(data.count);

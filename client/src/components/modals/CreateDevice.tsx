@@ -40,9 +40,9 @@ const CreateDevice = observer(({ show, onHide }: { show: boolean; onHide: () => 
   };
 
   useEffect(() => {
-    fetchTypes().then((data) => device?.setTypes(data as IType[]));
-    fetchBrands().then((data) => device?.setBrands(data as IBrand[]));
-    fetchDevices().then((data) => device?.setDevices(data as IDevice[]));
+    fetchTypes().then((data) => device?.setTypes(data.rows));
+    fetchBrands().then((data) => device?.setBrands(data.rows));
+    fetchDevices().then((data) => device?.setDevices(data.rows));
   }, []);
 
   const addDevice = () => {
