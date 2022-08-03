@@ -22,7 +22,6 @@ export const fetchBrands = async () => {
 };
 
 export const createDevice = async (device: FormData) => {
-  console.log(device);
   const { data } = await $authHost.post('api/device', device);
   return data;
 };
@@ -31,7 +30,7 @@ export const fetchDevices = async (
   typeId?: number,
   brandId?: number,
   page?: number,
-  limit = 30
+  limit = 12
 ) => {
   const { data } = await $host.get('api/device', { params: { typeId, brandId, page, limit } });
   return data;
