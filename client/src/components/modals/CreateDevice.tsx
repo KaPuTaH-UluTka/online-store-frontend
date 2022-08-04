@@ -48,8 +48,8 @@ const CreateDevice = observer(({ show, onHide }: { show: boolean; onHide: () => 
   const addDevice = () => {
     const formData = new FormData();
     formData.append('name', deviceName);
-    formData.append('name', `${devicePrice}`);
-    formData.append('img', deviceFile as File);
+    formData.append('price', `${devicePrice}`);
+    formData.append('img', deviceFile as Blob);
     formData.append('brandId', `${device?.selectedBrand?.id}`);
     formData.append('typeId', `${device?.selectedType?.id}`);
     formData.append('info', JSON.stringify(info));
