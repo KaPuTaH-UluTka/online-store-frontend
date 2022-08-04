@@ -1,16 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../index';
-import { Pagination } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
+import { Pagination } from '@mui/material';
 
 const Pages = observer(() => {
   const { device } = useContext(Context);
   const pagesCount = Math.ceil(device?.totalCount / device?.limit);
   const pages: number[] = [];
+  const [page, setPage] = useState(device?.page);
 
   for (let i = 0; i < pagesCount; i++) {
     pages.push(i + 1);
   }
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    device?.setPage(value);
+  };
 
   const prevPage = () => {
     if (device?.page > 1) {
@@ -25,24 +31,13 @@ const Pages = observer(() => {
   };
 
   return (
-    <Pagination>
-      <Pagination.First onClick={() => device?.setPage(pages[0])} />
-      <Pagination.Prev onClick={prevPage} />
-      {pages.map((page) => {
-        return (
-          <Pagination.Item
-            key={page}
-            active={device.page === page}
-            onClick={() => device?.setPage(page)}
-          >
-            {page}
-          </Pagination.Item>
-        );
-      })}
-
-      <Pagination.Next onClick={nextPage} />
-      <Pagination.Last onClick={() => device?.setPage(pages.length - 1)} />
-    </Pagination>
+    <Pagination
+      count={pagesCount}
+      page={page}
+      onChange={handleChange}
+      showFirstButton
+      showLastButton
+    />
   );
 });
 

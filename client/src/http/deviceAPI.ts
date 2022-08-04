@@ -27,10 +27,10 @@ export const createDevice = async (device: FormData) => {
 };
 
 export const fetchDevices = async (
-  typeId?: number,
-  brandId?: number,
+  typeId?: number | null,
+  brandId?: number | null,
   page?: number,
-  limit = 12
+  limit?: number
 ) => {
   const { data } = await $host.get('api/device', { params: { typeId, brandId, page, limit } });
   return data;
