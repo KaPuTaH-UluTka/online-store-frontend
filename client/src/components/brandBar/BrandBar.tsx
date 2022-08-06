@@ -8,7 +8,7 @@ const BrandBar = observer(() => {
 
   return (
     <List>
-      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+      <Typography sx={{ mt: 4, mb: 2 }} color={'primary'} variant="h6" component="div">
         Choose brand
       </Typography>
       {device.brands.map((brand) => {

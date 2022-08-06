@@ -1,5 +1,4 @@
 import { $authHost, $host } from './index';
-import { IDevice } from '../types/types';
 
 export const createType = async (type: { name: string }) => {
   const { data } = await $authHost.post('api/type', type);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import TypeBar from '../components/TypeBar';
 import BrandBar from '../components/brandBar/BrandBar';
 import DeviceList from '../components/DeviceList';
@@ -8,6 +8,8 @@ import { Context } from '../index';
 import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
 import Pages from '../components/Pages';
 import ItemsSettingsBar from '../components/ItemsSettingsBar';
+import { Container } from '@mui/material';
+import { mainDarkGrey } from '../utils/themes';
 
 const Shop = observer(() => {
   const { device } = useContext(Context);
@@ -41,7 +43,7 @@ const Shop = observer(() => {
 
   return (
     <Container>
-      <Row className={'mt-2'}>
+      <Row>
         <Col md={3}>
           <TypeBar />
           <BrandBar />

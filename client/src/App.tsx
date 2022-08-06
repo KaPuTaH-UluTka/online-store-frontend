@@ -7,6 +7,8 @@ import { Context } from './index';
 import { check } from './http/userAPI';
 import { IUser } from './types/types';
 import { Spinner } from 'react-bootstrap';
+import { yellowTheme } from './utils/themes';
+import { ThemeProvider } from '@mui/material';
 
 const App = observer(() => {
   const { user } = useContext(Context);
@@ -26,8 +28,10 @@ const App = observer(() => {
   }
   return (
     <BrowserRouter>
-      <NavBar />
-      <AppRouter />
+      <ThemeProvider theme={yellowTheme}>
+        <NavBar />
+        <AppRouter />
+      </ThemeProvider>
     </BrowserRouter>
   );
 });

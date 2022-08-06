@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../index';
 import { observer } from 'mobx-react-lite';
 import { Pagination } from '@mui/material';
+import { mainWhite } from '../utils/themes';
 
 const Pages = observer(() => {
   const { device } = useContext(Context);
@@ -18,20 +19,10 @@ const Pages = observer(() => {
     device?.setPage(value);
   };
 
-  const prevPage = () => {
-    if (device?.page > 1) {
-      device?.setPage(device?.page - 1);
-    }
-  };
-
-  const nextPage = () => {
-    if (device?.page < pages.length - 1) {
-      device?.setPage(device?.page + 1);
-    }
-  };
-
   return (
     <Pagination
+      sx={{ p: 3, display: 'flex', justifyContent: 'flex-end' }}
+      color={'primary'}
       count={pagesCount}
       page={page}
       onChange={handleChange}
