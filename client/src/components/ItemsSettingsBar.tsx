@@ -1,28 +1,30 @@
 import React, { useContext } from 'react';
-import { Container, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Container, MenuItem, SelectChangeEvent } from '@mui/material';
 import { Context } from '../index';
 import { observer } from 'mobx-react-lite';
+import { StyledSelect, styledSelectProps } from './styledComponents/componentStyles';
 
 const ItemsSettingsBar = observer(() => {
   const { device } = useContext(Context);
 
-  const selectChange = (event: SelectChangeEvent) => {
-    device?.setLimit(+event.target.value);
+  const selectChange = (event: SelectChangeEvent<unknown>) => {
+    const value = event.target.value;
+    device?.setLimit(value as number);
   };
 
   return (
     <Container sx={{ justifyContent: 'flex-end', display: 'flex' }}>
-      <Select
-        label={`${device?.limit}`}
+      <StyledSelect
         value={`${device?.limit}`}
         onChange={selectChange}
         size="small"
-        inputProps={{ 'aria-label': 'Without label' }}
+        variant={'standard'}
+        MenuProps={styledSelectProps}
       >
         <MenuItem value={12}>12</MenuItem>
-        <MenuItem value={16}>16</MenuItem>
-        <MenuItem value={20}>20</MenuItem>
-      </Select>
+        <MenuItem value={15}>15</MenuItem>
+        <MenuItem value={18}>18</MenuItem>
+      </StyledSelect>
     </Container>
   );
 });

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import TypeBar from '../components/TypeBar';
-import BrandBar from '../components/brandBar/BrandBar';
+import TypeBar from '../components/TypeBar/TypeBar';
+import BrandBar from '../components/BrandBar/BrandBar';
 import DeviceList from '../components/DeviceList';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../index';
@@ -9,7 +9,6 @@ import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
 import Pages from '../components/Pages';
 import ItemsSettingsBar from '../components/ItemsSettingsBar';
 import { Container } from '@mui/material';
-import { mainDarkGrey } from '../utils/themes';
 
 const Shop = observer(() => {
   const { device } = useContext(Context);
@@ -42,7 +41,7 @@ const Shop = observer(() => {
   }, [device?.page, device?.selectedType, device?.selectedBrand, device?.limit]);
 
   return (
-    <Container>
+    <Container sx={{ mt: 8, p: 1 }}>
       <Row>
         <Col md={3}>
           <TypeBar />

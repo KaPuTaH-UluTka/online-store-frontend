@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../index';
 import { observer } from 'mobx-react-lite';
 import { Pagination } from '@mui/material';
-import { mainWhite } from '../utils/themes';
 
 const Pages = observer(() => {
   const { device } = useContext(Context);
